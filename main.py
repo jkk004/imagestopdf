@@ -1,22 +1,8 @@
 from PIL import Image
 import tkinter as tk
 from tkinter import filedialog
-import numpy as np
 
-root = tk.Tk()
-canvas1 = tk.Canvas(root, width=300, height=300, bg='slateblue', relief='raised')
-canvas1.pack()
-
-label1 = tk.Label(root, text='Images to PDF', bg='slateblue')
-label1.config(font=('helvetica', 30))
-canvas1.create_window(150, 60, window=label1)
-
-#browseButton = tk.Button(text="Select File", command=getFiles, bg='green', fg='white',
-#                         font=('helvetica', 12, 'bold'))
-#canvas1.create_window(150, 130, window=browseButton)
-
-
-def convertToPdf():
+def imagesToPDF():
     imageList = []
     global im1
     global image1
@@ -32,10 +18,12 @@ def convertToPdf():
     export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
     im1.save(export_file_path, save_all = True, append_images = imageList)
     #im1.save(export_file_path)
+root = tk.Tk()
+canvas1 = tk.Canvas(root, width=300, height=300, bg='white')
+canvas1.pack()
 
-saveAsButton = tk.Button(text='Convert to PDF', command=convertToPdf, bg='green', fg='white',
-                         font=('helvetica', 12, 'bold'))
-canvas1.create_window(150, 130, window=saveAsButton)
+saveButton = tk.Button(text='Click On Me To Convert Images to PDF', command=imagesToPDF, bg='black', fg='yellow', font = 30)
+canvas1.create_window(150, 130, window=saveButton)
 
 canvas1.create_window(150, 230)
 
