@@ -1,6 +1,7 @@
-from PIL import Image
 import tkinter as tk
-from tkinter import filedialog
+from youtube_dl import YoutubeDL
+
+
 
 def imagesToPDF():
     imageList = []
@@ -18,13 +19,36 @@ def imagesToPDF():
     export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
     im1.save(export_file_path, save_all = True, append_images = imageList)
     #im1.save(export_file_path)
+
+def youtubeToAudio():
+    pathlabel = filedialog.askdirectory()
+    os.chdir(pathlabel)
+    song = YoutubeDL({'format': 'bestaudio'})
+    URL = entry1.get()
+    try:
+        song.extract_info(URL)
+    except Exception:
+        print("Try Again")
+
+
+
+
 root = tk.Tk()
-canvas1 = tk.Canvas(root, width=300, height=300, bg='white')
+canvas1 = tk.Canvas(root, width=400, height=400, bg='yellow')
 canvas1.pack()
 
-saveButton = tk.Button(text='Click On Me To Convert Images to PDF', command=imagesToPDF, bg='black', fg='yellow', font = 30)
-canvas1.create_window(150, 130, window=saveButton)
+label2 = tk.Label(root, text = "USEFUL THINGS", bg = 'yellow', fg = 'black')
+label2.config(font=('helvetica', 30))
+canvas1.create_window(200, 50, window = label2)
+saveButton = tk.Button(text='Click On Me To Convert Image(s) to PDF', command=imagesToPDF, bg='black', fg='yellow', font = 30)
+canvas1.create_window(200, 130, window=saveButton)
 
-canvas1.create_window(150, 230)
+entry1 = tk.Entry (root)
+canvas1.create_window(200, 230, window = entry1, width = 330)
+button1 = tk.Button(text='Click On Me To Convert Youtube Link To MP3', command=youtubeToAudio, bg='black', fg='yellow', font = 30)
+canvas1.create_window(200, 260, window=button1)
+label1 = tk.Label(root, text = "Paste Link Below", font = 30, bg = 'yellow', fg = 'blue')
+canvas1.create_window(100, 205, window = label1)
+
 
 root.mainloop()
