@@ -1,6 +1,8 @@
+from PIL import Image
 import tkinter as tk
+from tkinter import filedialog
 from youtube_dl import YoutubeDL
-
+import os
 
 
 def imagesToPDF():
@@ -28,7 +30,7 @@ def youtubeToAudio():
     try:
         song.extract_info(URL)
     except Exception:
-        print("Try Again")
+        print("Couldn't download the audio")
 
 
 
@@ -45,10 +47,10 @@ canvas1.create_window(200, 130, window=saveButton)
 
 entry1 = tk.Entry (root)
 canvas1.create_window(200, 230, window = entry1, width = 330)
-button1 = tk.Button(text='Click On Me To Convert Youtube Link To MP3', command=youtubeToAudio, bg='black', fg='yellow', font = 30)
+button1 = tk.Button(text='Click On Me To Convert Youtube Link To Audio File', command=youtubeToAudio, bg='black', fg='yellow', font = 30)
 canvas1.create_window(200, 260, window=button1)
 label1 = tk.Label(root, text = "Paste Link Below", font = 30, bg = 'yellow', fg = 'blue')
-canvas1.create_window(100, 205, window = label1)
+canvas1.create_window(95, 205, window = label1)
 
 
 root.mainloop()
