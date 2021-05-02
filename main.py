@@ -3,7 +3,10 @@ import tkinter as tk
 from tkinter import filedialog
 from youtube_dl import YoutubeDL
 import os
-
+import requests
+from random import randrange
+import re
+from time import strftime
 
 def imagesToPDF():
     imageList = []
@@ -32,25 +35,82 @@ def youtubeToAudio():
     except Exception:
         print("Couldn't download the audio")
 
+def song_recommender():
+    choices = ["Billy Joel", "Elton John", "Jim Croce", "Nujabes", "Eagles", "Radiohead", "Eminem", "Eagles", "Nobou Uematsu", "Stevie Wonder", "Eric Clapton", "The Beatles", "Joe Hisaishi", "Mac Demarco", "Pablo Cikaso", "Yoko Shimomura", "Queen", "Santana",
+               "Nirvana", "Bob Marley", "John Denver", "Rammstein", "XXXTentacion", "Outkast", "Sting", "Simon & Garfunkel", "Usher", "The Police", "Cypress Hill", "DMX", "Hans Zimmer", ""]
+    artist_choice = randrange(len(choices))
 
+    url = "https://www.google.com/search?q=" + choices[artist_choice] + " spotify"
+    link = requests.get(url)
+    leng = link.text.find("https://open.spotify")
+    final = ""
+    while link.text[leng] != '&':
+        final += link.text[leng]
+        leng += 1
+    url1 = final
+    link1 = requests.get(url1)
+    leng1 = [m.start() for m in re.finditer('true."name"', link1.text)]
+    final1 = ""
+    song_list = []
+    for i in leng1:
+        while link1.text[i + 13] != '"':
+            final1 += link1.text[i + 13]
+            i += 1
+        song_list.append(final1)
+        final1 = ""
+    chosen = (song_list[randrange(len(song_list))])
+    chosen = chosen.replace("&#39;", "")
+    chosen = chosen.replace("&amp", "")
+    chosen = chosen.replace("&quot:", "")
+    presentation = '"' + chosen + '"' + " by " + choices[artist_choice]
+    print(presentation)
+    label3.config(text=presentation)
+    return presentation
+
+def time():
+    string = strftime('%H:%M:%S %p')
+    label4.config(text = string)
+    label4.after(1000, time)
 
 
 root = tk.Tk()
-canvas1 = tk.Canvas(root, width=400, height=400, bg='yellow')
+root.title("Useful Things")
+canvas1 = tk.Canvas(root, width=700, height=600, bg='yellow')
 canvas1.pack()
 
+
 label2 = tk.Label(root, text = "USEFUL THINGS", bg = 'yellow', fg = 'black')
-label2.config(font=('helvetica', 30))
-canvas1.create_window(200, 50, window = label2)
+label2.config(font=('Times New Roman', 35))
+canvas1.create_window(350, 50, window = label2)
 saveButton = tk.Button(text='Click On Me To Convert Image(s) to PDF', command=imagesToPDF, bg='black', fg='yellow', font = 30)
 canvas1.create_window(200, 130, window=saveButton)
+saveButton.config(font=("Times New Roman", 15))
 
-entry1 = tk.Entry (root)
-canvas1.create_window(200, 230, window = entry1, width = 330)
+entry1 = tk.Entry(root)
+canvas1.create_window(240, 220, window = entry1, width = 430, height = 30)
 button1 = tk.Button(text='Click On Me To Convert Youtube Link To Audio File', command=youtubeToAudio, bg='black', fg='yellow', font = 30)
-canvas1.create_window(200, 260, window=button1)
-label1 = tk.Label(root, text = "Paste Link Below", font = 30, bg = 'yellow', fg = 'blue')
-canvas1.create_window(95, 205, window = label1)
+canvas1.create_window(245, 260, window=button1)
+button1.config(font=("Times New Roman", 15))
+label1 = tk.Label(root, text = "Paste Link Below: ", font = 30, bg = 'yellow', fg = 'blue')
+canvas1.create_window(90, 190, window = label1)
+label1.config(font=("Times New Roman", 13))
+
+button2 = tk.Button(text='Click On Me For A Song Recommendation', command=song_recommender, bg='black', fg='yellow', font = 30)
+canvas1.create_window(200, 360, window=button2)
+button2.config(font=("Times New Roman", 15))
+
+
+label3=tk.Label(root,bg='yellow',fg='black')
+label3.place(x= 30, y= 400)
+label3.config(font=("Times New Roman", 15))
+
+label4 = tk.Label(root, font=('calibri', 40, 'bold'),bg='yellow',fg='black')
+canvas1.create_window(530, 550, window = label4)
+
+time()
+
+
+
 
 
 root.mainloop()
