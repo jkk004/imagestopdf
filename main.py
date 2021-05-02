@@ -7,6 +7,7 @@ import requests
 from random import randrange
 import re
 from time import strftime
+import webbrowser
 
 def imagesToPDF():
     imageList = []
@@ -65,7 +66,21 @@ def song_recommender():
     presentation = '"' + chosen + '"' + " by " + choices[artist_choice]
     print(presentation)
     label3.config(text=presentation)
-    return presentation
+
+    comb = presentation + " official"
+    check = ""
+    r = requests.get("https://www.youtube.com/results?search_query=" + comb)
+    results = r.text
+    loc = results.index("/watch?")
+    for i in range(loc, loc + 100):
+        tally = 1
+        if results[i] == '"':
+            tally += 1
+            break
+        if tally == 1:
+            check += results[i]
+    ytlink = "https://www.youtube.com" + check
+    linkk.config(text = ytlink)
 
 def time():
     string = strftime('%H:%M:%S %p')
@@ -104,11 +119,16 @@ label3=tk.Label(root,bg='yellow',fg='black')
 label3.place(x= 30, y= 400)
 label3.config(font=("Times New Roman", 15))
 
-label4 = tk.Label(root, font=('calibri', 40, 'bold'),bg='yellow',fg='black')
+linkk = tk.Label(root, bg = "yellow", fg= "blue", width = 400)
+canvas1.create_window(235, 440, window=linkk)
+linkk.config(font=("Times New Roman", 15))
+linkk.bind("<Button-1>", lambda event: webbrowser.open(linkk.cget("text")))
+
+
+label4 = tk.Label(root, font=('calibri', 40, 'bold'),bg='yellow',fg= "black")
 canvas1.create_window(530, 550, window = label4)
 
 time()
-
 
 
 
