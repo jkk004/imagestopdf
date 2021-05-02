@@ -61,7 +61,7 @@ def song_recommender():
     chosen = (song_list[randrange(len(song_list))])
     chosen = chosen.replace("&#39;", "")
     chosen = chosen.replace("&amp", "")
-    chosen = chosen.replace("&quot:", "")
+    chosen = chosen.replace("&quot;", "")
     presentation = '"' + chosen + '"' + " by " + choices[artist_choice]
     print(presentation)
     label3.config(text=presentation)
