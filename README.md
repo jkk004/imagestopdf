@@ -6,5 +6,5 @@
 
 -Gets a song recommendation by picking a random song from the artist's Spotify page (useful in general)
 
-![image](https://user-images.githubusercontent.com/62976976/116808306-f5562780-aaec-11eb-8251-826c2da3a302.png)
+![image](https://user-images.githubusercontent.com/62976976/116808356-29c9e380-aaed-11eb-808f-ed70582f57ec.png)
 
