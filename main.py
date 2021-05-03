@@ -38,7 +38,9 @@ def youtubeToAudio():
 
 def song_recommender():
     choices = ["Billy Joel", "Elton John", "Jim Croce", "Nujabes", "Eagles", "Radiohead", "Eminem", "Eagles", "Nobou Uematsu", "Stevie Wonder", "Eric Clapton", "The Beatles", "Joe Hisaishi", "Mac Demarco", "Pablo Cikaso", "Yoko Shimomura", "Queen", "Santana",
-               "Nirvana", "Bob Marley", "John Denver", "Rammstein", "XXXTentacion", "Outkast", "Sting", "Simon & Garfunkel", "Usher", "The Police", "Cypress Hill", "DMX", "Hans Zimmer", ""]
+               "Nirvana", "Bob Marley", "John Denver", "Rammstein", "XXXTentacion", "Outkast", "Sting", "Simon & Garfunkel", "Frank Sinatra", "Bee Gees", "Usher", "The Police", "Cypress Hill", "DMX", "Hans Zimmer", "Elvis Presley", "ABBA", "Chicago", "The Beach Boys"
+               ,"The Doors", "The Who", "The Carpenters", "George Michael", "Willie Nelson", "The Weeknd", "George Harrison", "Paul McCartney", "John Lennon", "Led Zeppelin", "Michael Jackson", "Norah Jones", "George Michael", "Rich Brian"]
+
     artist_choice = randrange(len(choices))
 
     url = "https://www.google.com/search?q=" + choices[artist_choice] + " spotify"
@@ -67,9 +69,8 @@ def song_recommender():
     print(presentation)
     label3.config(text=presentation)
 
-    comb = presentation + " official"
     check = ""
-    r = requests.get("https://www.youtube.com/results?search_query=" + comb)
+    r = requests.get("https://www.youtube.com/results?search_query=" + presentation)
     results = r.text
     loc = results.index("/watch?")
     for i in range(loc, loc + 100):
@@ -83,7 +84,7 @@ def song_recommender():
     linkk.config(text = ytlink)
 
 def time():
-    string = strftime('%H:%M:%S %p')
+    string = strftime('%H:%M:%S')
     label4.config(text = string)
     label4.after(1000, time)
 
