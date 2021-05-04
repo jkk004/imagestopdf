@@ -107,8 +107,8 @@ canvas1.create_window(240, 220, window = entry1, width = 430, height = 30)
 button1 = tk.Button(text='Click On Me To Convert Youtube Link To Audio File', command=youtubeToAudio, bg='black', fg='yellow', font = 30)
 canvas1.create_window(245, 260, window=button1)
 button1.config(font=("Times New Roman", 15))
-label1 = tk.Label(root, text = "Paste Link Below: ", font = 30, bg = 'yellow', fg = 'blue')
-canvas1.create_window(90, 190, window = label1)
+label1 = tk.Label(root, text = "Paste Link Below (Can Convert Youtube Playlists Too): ", font = 30, bg = 'yellow', fg = 'blue')
+canvas1.create_window(220, 190, window = label1)
 label1.config(font=("Times New Roman", 13))
 
 button2 = tk.Button(text='Click On Me For A Song Recommendation', command=song_recommender, bg='black', fg='yellow', font = 30)
@@ -127,7 +127,7 @@ linkk.bind("<Button-1>", lambda event: webbrowser.open(linkk.cget("text")))
 
 
 label4 = tk.Label(root, font=('calibri', 40, 'bold'),bg='yellow',fg= "black")
-canvas1.create_window(530, 550, window = label4)
+canvas1.create_window(580, 550, window = label4)
 
 time()
 
