@@ -9,33 +9,6 @@ import re
 from time import strftime
 import webbrowser
 
-def imagesToPDF():
-    imageList = []
-    global im1
-    global image1
-
-    import_file_path = filedialog.askopenfilenames()
-    for i in range(len(import_file_path)):
-        if i == 0:
-            im1 = Image.open(import_file_path[i])
-            im1 = im1.convert('RGB')
-            continue
-        image1 = Image.open(import_file_path[i])
-        imageList.append(image1.convert('RGB'))
-    export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
-    im1.save(export_file_path, save_all = True, append_images = imageList)
-    #im1.save(export_file_path)
-
-def youtubeToAudio():
-    pathlabel = filedialog.askdirectory()
-    os.chdir(pathlabel)
-    song = YoutubeDL({'format': 'bestaudio'})
-    URL = entry1.get()
-    try:
-        song.extract_info(URL)
-    except Exception:
-        print("Couldn't download the audio")
-
 def song_recommender():
     choices = ["Billy Joel", "Elton John", "Jim Croce", "Nujabes", "Eagles", "Radiohead", "Eminem", "Eagles", "Nobou Uematsu", "Stevie Wonder", "Eric Clapton", "The Beatles", "Joe Hisaishi", "Mac Demarco", "Pablo Cikaso", "Yoko Shimomura", "Queen", "Santana",
                "Nirvana", "Bob Marley", "John Denver", "Rammstein", "XXXTentacion", "Outkast", "Sting", "Simon & Garfunkel", "Frank Sinatra", "Bee Gees", "Usher", "The Police", "Cypress Hill", "DMX", "Hans Zimmer", "Elvis Presley", "ABBA", "Chicago", "The Beach Boys"
@@ -82,6 +55,33 @@ def song_recommender():
             check += results[i]
     ytlink = "https://www.youtube.com" + check
     linkk.config(text = ytlink)
+
+def imagesToPDF():
+    imageList = []
+    global im1
+    global image1
+
+    import_file_path = filedialog.askopenfilenames()
+    for i in range(len(import_file_path)):
+        if i == 0:
+            im1 = Image.open(import_file_path[i])
+            im1 = im1.convert('RGB')
+            continue
+        image1 = Image.open(import_file_path[i])
+        imageList.append(image1.convert('RGB'))
+    export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
+    im1.save(export_file_path, save_all = True, append_images = imageList)
+    #im1.save(export_file_path)
+
+def youtubeToAudio():
+    pathlabel = filedialog.askdirectory()
+    os.chdir(pathlabel)
+    song = YoutubeDL({'format': 'bestaudio'})
+    URL = entry1.get()
+    try:
+        song.extract_info(URL)
+    except Exception:
+        print("Couldn't download the audio")
 
 def time():
     string = strftime('%H:%M:%S')
