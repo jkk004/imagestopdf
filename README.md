@@ -6,6 +6,8 @@
 
 -Gets a song recommendation by picking a random song from the artist's Spotify page and getting a Youtube Link to click (useful in general)
 
+-Gets a movie recommendation by picking a random movie from a director's list of notable films on IMDB
+
 -Updates price of Tezos and Dogecoin every 5 seconds
 
 ![image](https://user-images.githubusercontent.com/62976976/117599533-d5cb8a00-b0fe-11eb-9bb9-6e7944bd8d54.png)
