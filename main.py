@@ -8,11 +8,13 @@ from random import randrange
 import re
 from time import strftime
 import webbrowser
+import cryptocompare
 
 def song_recommender():
     choices = ["Billy Joel", "Elton John", "Jim Croce", "Nujabes", "Eagles", "Radiohead", "Eminem", "Eagles", "Nobou Uematsu", "Stevie Wonder", "Eric Clapton", "The Beatles", "Joe Hisaishi", "Mac Demarco", "Pablo Cikaso", "Yoko Shimomura", "Queen", "Santana",
                "Nirvana", "Bob Marley", "John Denver", "Rammstein", "XXXTentacion", "Outkast", "Sting", "Simon & Garfunkel", "Frank Sinatra", "Bee Gees", "Usher", "The Police", "Cypress Hill", "DMX", "Hans Zimmer", "Elvis Presley", "ABBA", "Chicago", "The Beach Boys"
-               ,"The Doors", "The Who", "The Carpenters", "George Michael", "Willie Nelson", "The Weeknd", "George Harrison", "Paul McCartney", "John Lennon", "Led Zeppelin", "Michael Jackson", "Norah Jones", "George Michael", "Rich Brian"]
+               ,"The Doors", "The Who", "The Carpenters", "George Michael", "Willie Nelson", "The Weeknd", "George Harrison", "Paul McCartney", "John Lennon", "Led Zeppelin", "Michael Jackson", "Norah Jones", "George Michael", "Rich Brian", "Sublime", "Fat Jon", "re:plus"
+                , "Cafe Accordion Orchestra", "MF Doom", "The Doobie Brothers", "Bud Powell", "John Coltrane"]
 
     artist_choice = randrange(len(choices))
 
@@ -56,6 +58,34 @@ def song_recommender():
     ytlink = "https://www.youtube.com" + check
     linkk.config(text = ytlink)
 
+def movie_recommender():
+    directors = ["Andrei Tarkovsky", "Stanley Kubrick", "Akira Kurosawa", "James Cameron" , "Steven Spielberg", "Christopher Nolan",  "Francis Ford Coppola","Quentin Tarantino", "Martin Scorsese", "Hiyao Miyazaki", "Peter Jackson", "Clint Eastwood", "John Woo"
+                 , "Ang Lee", "Kim Jee Woon", "Clint Eastwood", "Bong Joon Ho", "Park Chan Wook", "Michael Bay", "Zack Snyder", "J.J. Abrams", "Barry Levinson"]
+    movie_choice = randrange(len(directors))
+
+    url = "https://www.google.com/search?q=" + directors[movie_choice] + " imdb"
+    link = requests.get(url)
+    leng = link.text.find("imdb.com")
+    final = ""
+    while link.text[leng] != '&':
+        final += link.text[leng]
+        leng += 1
+    link = requests.get("https://www." + final)
+    leng1 = [m.start() for m in re.finditer('id="director', link.text)]
+    mov_ind = randrange(len(leng1))
+    title = ""
+    counter = 0
+    while counter == 0:
+        if (link.text[leng1[mov_ind] + 103]) == "<":
+            counter = 1
+            break
+        else:
+            title += link.text[leng1[mov_ind] + 103]
+            leng1[mov_ind] += 1
+
+    submission = '"' + title + '"' + " by " + directors[movie_choice]
+    label7.config(text = submission)
+
 def imagesToPDF():
     imageList = []
     global im1
@@ -83,10 +113,20 @@ def youtubeToAudio():
     except Exception:
         print("Couldn't download the audio")
 
-def time():
-    string = strftime('%H:%M:%S')
-    label4.config(text = string)
-    label4.after(1000, time)
+def dogecoin():
+    doggie = cryptocompare.get_price("DOGE", currency = "USD")
+    label5.config(text = doggie)
+    label5.after(5000, dogecoin)
+
+def tezos():
+    tezzy = cryptocompare.get_price("XTZ", currency = "USD")
+    label6.config(text = tezzy)
+    label6.after(5000, tezos)
+
+#def time():
+ #   string = strftime('%H:%M:%S')
+  #  label4.config(text = string)
+  #  label4.after(1000, time)
 
 
 root = tk.Tk()
@@ -126,11 +166,24 @@ linkk.config(font=("Times New Roman", 15))
 linkk.bind("<Button-1>", lambda event: webbrowser.open(linkk.cget("text")))
 
 
-label4 = tk.Label(root, font=('calibri', 40, 'bold'),bg='yellow',fg= "black")
-canvas1.create_window(580, 550, window = label4)
+#label4 = tk.Label(root, font=('calibri',  4, 'bold'), bg='yellow',fg= "black")
+#canvas1.create_window(580, 150, window = label4)
 
-time()
+label5 = tk.Label(root, font = ('calibri', 20, 'bold'), bg = "yellow", fg = "black")
+canvas1.create_window(550, 100, window = label5)
+label6 = tk.Label(root, font = ('calibri', 20, 'bold'), bg = "yellow", fg = "black")
+canvas1.create_window(550, 130, window = label6)
+label7 = tk.Label(root, font = ("Times New Roman", 15), bg = "yellow", fg = "black")
+label7.place(x= 30, y= 530)
 
+button3 = tk.Button(text='Click On Me For A Movie Recommendation', command=movie_recommender, bg='black', fg='yellow', font = 30)
+canvas1.create_window(200, 490, window=button3)
+button3.config(font=("Times New Roman", 15))
+
+
+#time()
+dogecoin()
+tezos()
 
 
 
