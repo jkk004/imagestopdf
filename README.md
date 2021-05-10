@@ -8,5 +8,5 @@
 
 -Updates price of Tezos and Dogecoin evert 5 seconds
 
-![image](https://user-images.githubusercontent.com/62976976/117597088-b54d0100-b0f9-11eb-97b7-5a7112137218.png)
+![image](https://user-images.githubusercontent.com/62976976/117597139-d6155680-b0f9-11eb-8684-e3ea24d1e6f8.png)
 
