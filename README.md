@@ -6,5 +6,7 @@
 
 -Gets a song recommendation by picking a random song from the artist's Spotify page and getting a Youtube Link to click (useful in general)
 
-![image](https://user-images.githubusercontent.com/62976976/116987859-6e3bb780-ac84-11eb-84da-7dd8e859f482.png)
+-Updates price of Tezos and Dogecoin evert 5 seconds
+
+![image](https://user-images.githubusercontent.com/62976976/117597088-b54d0100-b0f9-11eb-97b7-5a7112137218.png)
 
